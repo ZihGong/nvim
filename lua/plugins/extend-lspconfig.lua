@@ -2,7 +2,6 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     servers = {
-      tinymist = {},
       pyright = {
         settings = {
           pyright = {

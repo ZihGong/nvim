@@ -2,7 +2,9 @@ return {
   "mfussenegger/nvim-lint",
   opts = {
     linters_by_ft = {
-      markdown = {}, -- disable markdown lint
+      python = { "flake8" },
+      sh = { "shellcheck" },
+      bash = { "shellcheck" },
     },
   },
 }

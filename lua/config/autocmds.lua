@@ -23,39 +23,10 @@ if not vim.g.vscode then
     callback = function()
       -- 获取当前缓冲区文件名（不含路径）
       local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
-      -- 仅当文件名为 xmake.lua 时禁用格式化
+      -- 仅当文件名为 xmake.lua 时禁用格式化（虽然我们不再支持 xmake，但保留以防万一）
       if filename == "xmake.lua" then
         vim.b.autoformat = false
       end
-    end,
-  })
-
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "java",
-    callback = function()
-      vim.keymap.set("n", "<leader>cj", function()
-        local filename = vim.fn.expand("%:t") -- 获取带扩展名的文件名
-        local file_dir = vim.fn.expand("%:p:h")
-        vim.cmd("w")
-        local cmd = string.format("java %s", filename)
-        Snacks.terminal(cmd, {
-          cwd = file_dir,
-          auto_close = false,
-          interactive = true,
-        })
-      end, { desc = "Run Java File", buffer = true })
-      vim.keymap.set("n", "<leader>cJ", function()
-        local filename = vim.fn.expand("%:t") -- 获取带扩展名的文件名
-        local classname = vim.fn.expand("%:t:r") -- 获取类名（无扩展名）
-        local file_dir = vim.fn.expand("%:p:h")
-        vim.cmd("w")
-        local cmd = string.format("javac %s && java %s", filename, classname)
-        Snacks.terminal(cmd, {
-          cwd = file_dir,
-          auto_close = false,
-          interactive = true,
-        })
-      end, { desc = "Compile & Run Java File", buffer = true })
     end,
   })
 
