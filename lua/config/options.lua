@@ -17,3 +17,6 @@ opt.spelllang = { "en", "cjk" }
 opt.linebreak = false
 
 vim.g.root_spec = { "cwd" }
+
+-- 设置剪贴板选项，支持系统剪贴板
+vim.opt.clipboard = "unnamedplus"
