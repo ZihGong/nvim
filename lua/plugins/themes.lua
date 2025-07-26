@@ -6,10 +6,10 @@ return {
     priority = 1000,
     config = function()
       require("catppuccin").setup({
-        flavour = "auto", -- 自动根据系统主题选择
+        flavour = "latte", -- 固定使用 latte 作为浅色主题
         background = {
-          light = "latte", -- 浅色模式使用 latte
-          dark = "mocha", -- 深色模式先用 mocha，稍后会切换到 dracula
+          light = "latte",
+          dark = "latte",
         },
         transparent_background = false,
         show_end_of_buffer = false,
@@ -56,28 +56,5 @@ return {
       })
     end,
   },
-  -- 主题切换逻辑
-  {
-    "LazyVim/LazyVim",
-    opts = function()
-      -- 检测系统主题
-      local function get_system_appearance()
-        local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-        if handle then
-          local result = handle:read("*a")
-          handle:close()
-          return result:match("Dark") and "dark" or "light"
-        end
-        return "dark" -- 默认深色
-      end
-      
-      -- 根据系统主题设置配色方案
-      local appearance = get_system_appearance()
-      local colorscheme = appearance == "light" and "catppuccin-latte" or "dracula"
-      
-      return {
-        colorscheme = colorscheme,
-      }
-    end,
-  },
+  -- 主题切换逻辑现在由 auto-dark-mode.nvim 插件管理
 }
